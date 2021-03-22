@@ -12,7 +12,7 @@
 
 ## MVVM
 
-![495px-MVVMPattern](C:\Users\zhangxin\Desktop\495px-MVVMPattern.png)
+![495px-MVVMPattern](.\imgs\495px-MVVMPattern.png)
 
 MVVM 是 Model-View-ViewModel 的缩写。MVVM 是一种软件[架构模式](https://zh.wikipedia.org/wiki/架构模式)。
 
