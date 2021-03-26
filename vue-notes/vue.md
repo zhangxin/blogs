@@ -244,9 +244,13 @@ v-model 其实是 v-bind 和 @input 事件的结合，即绑定了值又监听�
 
 [测试](http://js.jirengu.com/jevay/1/edit?html,output)
 
-多选按钮上面的特性也是有原因的。如果想多选按钮的 v-model 绑定一个字符串时候，这个字符串不代表是否被选中的布尔值而是一个 value 的时候，可以在复选框上定义一个 true-value 和 false-value，选中时候 v-model 绑定的值是 true-value，否则是 false-value。 true-value 和 false-value 的这种用法还是要记清楚的
+多选按钮上面的特性也是有原因的。如果想多选按钮的 v-model 绑定一个字符串，这个字符串不代表是否被选中的布尔值而是一个 value 的时候，可以在复选框上定义一个 true-value 和 false-value，选中时候 v-model 绑定的值是 true-value，否则是 false-value。 true-value 和 false-value 的这种用法还是要记清楚的
 
 [测试](http://js.jirengu.com/muqax/1/edit)
+
+### 表单总结
+
+对于单选按钮，复选框及选择框的选项，`v-model` 绑定的值通常是静态字符串 。对于复选框可以是布尔值，即当复选框绑定的是一个数组的时候，v-model 绑定的是被选中的值组成的数组。当复选框绑定的是一个静态字符串时，会被转化为布尔值
 
 ## 组件
 
