@@ -240,9 +240,9 @@ v-model 其实是 v-bind 和 @input 事件的结合，即绑定了值又监听�
 
 ### 多选按钮
 
-多选按钮的 v-model 绑定一个数组的时候，v-model 的绑定的值代表选中的 value 的数组，绑定一个布尔值或者字符串的时候，绑定的是按钮是否被选中的布尔值，最终都会被转化为布尔值。其实这个属于另类了，因为其他的表单元素的 v-model 绑定的值都是 value 值，只有多选按钮例外。不管是单个多选按钮还是多个多选按钮效果是一样的。
+多选按钮的 v-model 绑定一个数组的时候，v-model 的绑定的值代表选中的 value 的数组。多选按钮的 v-model 绑定的是一个布尔值或者静态字符串的时候，最终都会被转化为表示是否被选中的布尔值。其实这个属于另类了，因为其他的表单元素的 v-model 绑定的值都是 value 值，只有多选按钮例外。不管是单个多选按钮还是多个多选按钮效果是一样的。
 
-[测试](http://js.jirengu.com/jevay/1/edit?html,output)
+[测试](http://js.jirengu.com/kayakotifa/1/edit)
 
 多选按钮上面的特性也是有原因的。如果想多选按钮的 v-model 绑定一个字符串，这个字符串不代表是否被选中的布尔值而是一个 value 的时候，可以在复选框上定义一个 true-value 和 false-value，选中时候 v-model 绑定的值是 true-value，否则是 false-value。 true-value 和 false-value 的这种用法还是要记清楚的
 
