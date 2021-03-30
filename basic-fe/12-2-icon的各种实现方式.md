@@ -39,7 +39,7 @@
 
 ## Icon Font
 
-Icon Font 的基本原理是将 Icon 定义为字体图标, 在 CSS 中用 `@font-face`  引入 Icon Font 自定义字体, 再利用 `font-family` 和字符码显示出指定的图标。Icon Font 的实质就是把字体做成图标。一般需要以下步骤：
+Icon Font 的基本原理是将 Icon 定义为字体图标，在 CSS 中用 `@font-face`  引入 Icon Font 自定义字体，再利用 `font-family` 和字符码显示出指定的图标。Icon Font 的实质就是把字体做成图标。一般需要以下步骤：
 
 1. 制作字体文件（利用 iconfont）
 2. 声明 font-family
@@ -56,7 +56,7 @@ HTML 实体就是 HTML 中的一些转义字符，以 `&` 开头。一般是 HTM
 
 CSS 不支持使用 HTML 实体。用 CSS 表示 Unicode 字符的方式很简单，即 `\unicode_number`
 
-由于使用的是字体, 因此可以通过 `color`，`font-size` 设置 icon 的样式。Icon Font 拥有比 CSS Sprite 图片更小的文件体积, 维护也比图片更方便, 但是 Icon Font 通常只能使用单一的颜色，字体文件生成也比 CSS Sprites 更复杂。
+由于使用的是字体, 因此可以通过 `color`，`font-size` 设置 icon 的样式。Icon Font 拥有比 CSS Sprite 图片更小的文件体积，维护也比图片更方便，但是 Icon Font 通常只能使用单一的颜色，字体文件生成也比 CSS Sprites 更复杂。
 
 ## CSS Icon
 
@@ -79,6 +79,7 @@ SVG 有两种使用方式：
 
 1. 搜索 ”npm svg sprite“
 2. 根据提示 安装并使用命令行，生成 symbol
+   1. 上面两步也可以使用阿里 iconfont，引入 symbol 即可
 3. 引入。可以直接粘贴 `<svg>` 标签声明的 icon，也可以引入外部链接
 4. 使用 `<svg>` 标签引入 icon。代码结构一般如下
 
