@@ -42,11 +42,11 @@ code script
 - 能继承的属性
 	- 字体相关属性：font,font-family,font-weight,font-size,font-style,font-stretch,font-size-adjust
 	- 文本相关属性：text-indent(文本缩进),text-align,line-height,word-spacing,letter-spacing,text-transform,direction,color
-	- 元素可见性:visibility
+	- 元素可见性：visibility
 	- 表格布局属:caption-side,border-collapse,border-spacing,empty-cells,table-layout
 	- 列表布局属性：list-style-type,list-style-image,list-style-position,list-style
 	- 生成内容属性：quotes
-	- 光标属性:cursor
+	- 光标属性：cursor
 	- 页面样式属性：page,page-break-inside,window,orphans
 	- 声音样式属性：speak,speak-punctuation….
 
@@ -95,7 +95,7 @@ selector {
 
 ### font-family 原理
 
-使用浏览器打开页面时，浏览器会读取 HTML 文件进行解析渲染。当读到文字时会转换成对应的 unicode码（可以认为是世界上任意一种文字的特定编号）。再根据 HTML 里设置的 font-family （如果没设置则使用浏览器默认设置）去查找电脑里（如果有自定义字体@font-face ，则加载对应字体文件）对应字体的字体文件。找到文件后根据 unicode 码去查找绘制外形，找到后绘制到页面上
+使用浏览器打开页面时，浏览器会读取 HTML 文件进行解析渲染。当读到文字时会转换成对应的 unicode 码（可以认为是世界上任意一种文字的特定编号）。再根据 HTML 里设置的 font-family （如果没设置则使用浏览器默认设置）去查找电脑里（如果有自定义字体@font-face ，则加载对应字体文件）对应字体的字体文件。找到文件后根据 unicode 码去查找绘制外形，找到后绘制到页面上
 
 ### font-family 的写法
 

@@ -56,7 +56,7 @@ HTML 实体就是 HTML 中的一些转义字符，以 `&` 开头。一般是 HTM
 
 CSS 不支持使用 HTML 实体。用 CSS 表示 Unicode 字符的方式很简单，即 `\unicode_number`
 
-由于使用的是字体, 因此可以通过 `color`，`font-size` 设置 icon 的样式。Icon Font 拥有比 CSS Sprite 图片更小的文件体积, 维护也比图片更方便, 但是 Icon Font 通常只能使用单一的颜色, 字体文件生成也比 CSS Sprites 更复杂。
+由于使用的是字体, 因此可以通过 `color`，`font-size` 设置 icon 的样式。Icon Font 拥有比 CSS Sprite 图片更小的文件体积, 维护也比图片更方便, 但是 Icon Font 通常只能使用单一的颜色，字体文件生成也比 CSS Sprites 更复杂。
 
 ## CSS Icon
 
