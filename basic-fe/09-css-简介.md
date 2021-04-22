@@ -30,6 +30,16 @@ a:hover{
   50% { background: orange }
   to { background: yellowgreen }
 }
+
+@media screen and (width>100px){
+    h1 {
+        color: red;
+    }
+}
+
+@font-face {
+    
+}
 ```
 
 一般格式：
@@ -68,7 +78,7 @@ CSS 有三种引入方式，分别是内联样式，内部样式和外部样式
 </head>
 ```
 
-- 导入式：使用 CSS 规则，通过 `@import` 导入外部 CSS 文件
+- 导入式：使用 CSS 规则，通过 `@import` 导入外部 CSS 文件。bootstrap 的 Less 入口文件 `bootstrap.less` 就使用了这种语法。
 
 ```css
 <style>

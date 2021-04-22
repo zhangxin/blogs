@@ -156,10 +156,10 @@ body {
 ## 单位
 
 - px：固定单位
-- 百分比（宽高 文字大小 line-height  position）
+- 百分比：相对单位（宽高 文字大小 line-height  position）
 - em: 相对单位，相对于父元素字体大小
 - rem: 相对单位，相对于根元素 (html) 字体大小
-- vw vh: 相对单位，1vw 为屏幕宽度的 1% [兼容性](http://caniuse.com/#search=vw)
+- vw vh: 相对单位，1vw 为屏幕宽度的 1%  1vh 为屏幕高度的 1%。[兼容性](http://caniuse.com/#search=vw) 差
 
 ## 隐藏 or 透明
 

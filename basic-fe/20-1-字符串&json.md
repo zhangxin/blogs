@@ -14,7 +14,9 @@
 
     var str2 = " world";
     var str3 = str1 + str2;
-    cosnole.log( str3 );
+	var str4 = str1.concat(str2) // 与 + 作用相同
+    cosnole.log( str3 ); // hello world
+    cosnole.log( str4 ); // hello world
 ```
 
 2. 字符串截取
@@ -33,6 +35,8 @@
     var s1 = str.search('my');   //6 找不到为-1
     var s2 = str.replace('my', 'your'); //  替换
     var s3 = str.match('my'); //返回匹配的数组
+	var index = str.indexOf("hello") // 0
+    var index = str.indexOf("World") // -1 大小写敏感
 ```
 
 4. 大小写
@@ -52,6 +56,305 @@ var newStr = strArray.join('') // 将字符数组按照参数拼接起来
 ```
 
 字符串操作不会修改原来的字符串
+
+## ES6新增的操作字符串的方法
+
+1. 返回字符的 Unicode 码
+
+```javascript
+let s = '𠮷a';
+s.codePointAt(0) // 134071
+s.codePointAt(1) // 57271
+s.codePointAt(2) // 97
+```
+
+`codePointAt` 方法的参数，是字符在字符串中的位置（从 0 开始）。上面代码中，JavaScript 将“𠮷a”视为三个字符，`codePointAt` 方法在第一个字符上，正确地识别了“𠮷”，返回了它的十进制码点 134071（即十六进制的20BB7）。在第二个字符（即“𠮷”的后两个字节）和第三个字符“a”上，`codePointAt` 方法的结果与`charCodeAt` 方法相同。
+
+2. String.fromCodePoint()
+
+ES5 提供 `String.fromCharCode` 方法，用于从码点返回对应字符，但是这个方法不能识别超过两字节的字符（Unicode 编号大于0xFFFF）。
+
+```
+String.fromCharCode(0x20BB7)
+// "ஷ"
+```
+
+上面代码中，`String.fromCharCode`不能识别大于 `0xFFFF` 的码点，所以 `0x20BB7` 就发生了溢出，最高位 2 被舍弃了，最后返回码点 `U+0BB7` 对应的字符，而不是码点 `U+20BB7` 对应的字符。
+ES6 提供了 `String.fromCodePoint` 方法，可以识别大于 `0xFFFF` 的字符，弥补了 `String.fromCharCode` 方法的不足。在作用上，正好与 `codePointAt` 方法相反。
+
+```javascript
+String.fromCodePoint(0x20BB7)
+// "𠮷"
+String.fromCodePoint(0x78, 0x1f680, 0x79) === 'x\uD83D\uDE80y'
+// true
+```
+
+2. 字符串的遍历器接口 for of
+
+```javascript
+for (let codePoint of 'abc') {
+  console.log(codePoint)
+}
+// "a"
+// "b"
+// "c"
+```
+
+除了遍历字符串，这个遍历器最大的优点是可以识别大于 `0xFFFF` 的码点，传统的 `for` 循环无法识别这样的码点。
+
+4. at()
+
+`at` 方法可以识别 Unicode 编号大于 `0xFFFF` 的字符，返回正确的字符。
+
+```
+‘abc’.at(0)//"a"
+'吉'.at(0)//"吉"
+```
+
+5. normalize()
+
+许多欧洲语言有语调符号和重音符号。为了表示它们，Unicode 提供了两种方法。一种是直接提供带重音符号的字符，比如 Ǒ（u01D1）。另一种是提供合成符号（combining character），即原字符与重音符号的合成，两个字符合成一个字符，比如 O（u004F）和 ˇ（u030C）合成 Ǒ（u004Fu030C）。
+
+这两种表示方法，在视觉和语义上都等价，但是 JavaScript 不能识别。
+
+```javascript
+'\u01D1'==='\u004F\u030C' //false    
+'\u01D1'.length // 1
+'\u004F\u030C'.length // 2
+```
+
+上面代码表示，JavaScript 将合成字符视为两个字符，导致两种表示方法不相等。
+ES6 提供字符串实例的 normalize() 方法，用来将字符的不同表示方法统一为同样的形式，这称为 Unicode 正规化。
+
+```javascript
+'\u01D1'.normalize() === '\u004F\u030C'.normalize()
+// true
+```
+
+6. includes(), startsWith(), endsWith()
+
+传统上，JavaScript 只有 indexOf 方法，可以用来确定一个字符串是否包含在另一个字符串中。ES6 又提供了三种新方法。
+
+```javascript
+**includes()**：返回布尔值，表示是否找到了参数字符串。
+**startsWith()**：返回布尔值，表示参数字符串是否在原字符串的头部。
+**endsWith()**：返回布尔值，表示参数字符串是否在原字符串的尾部。
+let s = 'Hello world!';    
+s.startsWith('Hello') // true
+s.endsWith('!') // true
+s.includes('o') // true
+```
+
+这三个方法都支持第二个参数，表示开始搜索的位置。
+
+```javascript
+let s = 'Hello world!';    
+s.startsWith('world', 6) // true
+s.endsWith('Hello', 5) // true
+s.includes('Hello', 6) // false
+```
+
+上面代码表示，使用第二个参数 n 时，`endsWith` 的行为与其他两个方法有所不同。它针对前 n 个字符，而其他两个方法针对从第 n 个位置直到字符串结束。
+
+7. repeat()
+
+`repeat` 方法返回一个新字符串，表示将原字符串重复n次。
+
+```javascript
+'x'.repeat(3) // "xxx"
+'hello'.repeat(2) // "hellohello"
+'na'.repeat(0) // ""
+```
+
+参数如果是小数，会被取整。
+
+```javascript
+'na'.repeat(2.9) // "nana"
+```
+
+如果 `repeat`的参数是负数或者 `Infinity`，会报错。
+
+```javascript
+'na'.repeat(Infinity)
+// RangeError
+'na'.repeat(-1)
+// RangeError
+```
+
+8. padStart()，padEnd()
+
+ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。`padStart()`用于头部补全，`adEnd()` 用于尾部补全。
+
+```javascript
+'x'.padStart(5, 'ab') // 'ababx'
+'x'.padStart(4, 'ab') // 'abax'
+
+'x'.padEnd(5, 'ab') // 'xabab'
+'x'.padEnd(4, 'ab') // 'xaba'
+```
+
+上面代码中，padStart 和 padEnd一共接受两个参数，第一个参数用来指定字符串的最小长度，第二个参数是用来补全的字符串。如果原字符串的长度，等于或大于指定的最小长度，则返回原字符串。
+
+```javascript
+'xxx'.padStart(2, 'ab') // 'xxx'
+'xxx'.padEnd(2, 'ab') // 'xxx'
+```
+
+如果用来补全的字符串与原字符串，两者的长度之和超过了指定的最小长度，则会截去超出位数的补全字符串。
+
+```javascript
+'abc'.padStart(10, '0123456789')
+// '0123456abc'
+```
+
+如果省略第二个参数，默认使用空格补全长度。
+
+```javascript
+'x'.padStart(4) // '   x'
+'x'.padEnd(4) // 'x   '
+```
+
+`padStart` 的常见用途是为数值补全指定位数。下面代码生成 10 位的数值字符串。
+
+```javascript
+'1'.padStart(10, '0') // "0000000001"
+'12'.padStart(10, '0') // "0000000012"
+'123456'.padStart(10, '0') // "0000123456"
+```
+
+另一个用途是提示字符串格式。
+
+```javascript
+'12'.padStart(10, 'YYYY-MM-DD') // "YYYY-MM-12"
+'09-12'.padStart(10, 'YYYY-MM-DD') // "YYYY-09-12"
+```
+
+9. matchAll()
+
+`matchAll` 方法返回一个正则表达式在当前字符串的所有匹配。
+
+10. 字符串模板
+
+模板字符串（template string）是增强版的字符串，用反引号（`）标识。它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量。----- 字符串模板，用到比较多。
+
+```javascript
+// 普通字符串
+`In JavaScript '\n' is a line-feed.`
+
+// 多行字符串
+`In JavaScript this is
+ not legal.`
+
+console.log(`string text line 1
+string text line 2`);
+
+// 字符串中嵌入变量
+let name = "Bob", time = "today";
+`Hello ${name}, how are you ${time}?`
+```
+
+上面代码中的模板字符串，都是用反引号表示。如果在模板字符串中需要使用反引号，则前面要用反斜杠转义。
+
+```javascript
+let greeting = `\`Yo\` World!`;
+```
+
+如果使用模板字符串表示多行字符串，所有的空格和缩进都会被保留在输出之中。
+
+```javascript
+$('#list').html(`
+<ul>
+  <li>first</li>
+  <li>second</li>
+</ul>
+`);
+```
+
+上面代码中，所有模板字符串的空格和换行，都是被保留的，比如<ul>标签前面会有一个换行。如果你不想要这个换行，可以使用trim方法消除它。
+
+```javascript
+$('#list').html(`
+<ul>
+  <li>first</li>
+  <li>second</li>
+</ul>
+`.trim());
+```
+
+模板字符串中嵌入变量，需要将变量名写在 `${}` 之中。
+
+```javascript
+function authorize(user, action) {
+  if (!user.hasPrivilege(action)) {
+    throw new Error(
+      // 传统写法为
+      // 'User '
+      // + user.name
+      // + ' is not authorized to do '
+      // + action
+      // + '.'
+      `User ${user.name} is not authorized to do ${action}.`);
+  }
+}
+```
+
+大括号内部可以放入任意的 JavaScript 表达式，可以进行运算，以及引用对象属性。
+
+```javascript
+let x = 1;
+let y = 2;
+
+`${x} + ${y} = ${x + y}`
+// "1 + 2 = 3"
+
+`${x} + ${y * 2} = ${x + y * 2}`
+// "1 + 4 = 5"
+
+let obj = {x: 1, y: 2};
+`${obj.x + obj.y}`
+// "3"
+```
+
+模板字符串之中还能调用函数。
+
+```javascript
+function fn() {
+  return "Hello World";
+}    
+`foo ${fn()} bar`
+// foo Hello World bar
+```
+
+如果大括号中的值不是字符串，将按照一般的规则转为字符串。比如，大括号中是一个对象，将默认调用对象的 `toString` 方法。
+如果模板字符串中的变量没有声明，将报错。
+
+```javascript
+// 变量place没有声明
+let msg = `Hello, ${place}`;
+// 报错
+```
+
+由于模板字符串的大括号内部，就是执行 JavaScript 代码，因此如果大括号内部是一个字符串，将会原样输出。
+
+```javascript
+`Hello ${'World'}`
+// "Hello World"
+```
+
+模板字符串甚至还能嵌套。
+
+```javascript
+const tmpl = addrs => `
+  <table>
+  ${addrs.map(addr => `
+    <tr><td>${addr.first}</td></tr>
+    <tr><td>${addr.last}</td></tr>
+  `).join('')}
+  </table>
+`;
+```
+
+文中ES6的内容，主要来自于阮一峰的《ES6标准入门》。
 
 ## 对象
 

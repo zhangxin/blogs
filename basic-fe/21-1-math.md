@@ -1,4 +1,4 @@
-# Math&数组&Date
+# Math
 
 ## Math
 
@@ -143,13 +143,3 @@ Math.asin(1) // 1.5707963267948966
 Math.acos(1) // 0
 Math.atan(1) // 0.7853981633974483
 ```
-
-## 数组
-
-操作数组的方法除了 arr.slice() 以外都会对原数组产生影响
-
-sort(function(a, b) {
-
-return a- b  // 意思是 a-b 大于 0 时候把ab进行反转，反之什么都不做
-
-})
